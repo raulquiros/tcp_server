@@ -17,8 +17,12 @@ func main() {
 	var commandBus = inmemory.NewCommandBus()
 	var commands = make(map[command.Type]command.Handler)
 
+	storageServer := redis.New(
+		&redis.Config{Host: os.Getenv("REDIS_HOST"), Port: os.Getenv("REDIS_PORT")},
+	)
+
 	//registering commands to command bus
-	commands[sku.SkuCreateType] = sku.NewCreateSkuCommandHandler(redis.NewRedisSkuRepository())
+	commands[sku.SkuCreateType] = sku.NewCreateSkuCommandHandler(redis.NewRedisSkuRepository(storageServer.Conn()))
 	commandBus.Register(commands)
 
 	s := server.New(
