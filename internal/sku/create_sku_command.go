@@ -6,14 +6,14 @@ import (
 
 const SkuCreateType command.Type = "command.user.create"
 
-type createSkuCommand struct {
+type CreateSkuCommand struct {
 	sku string
 }
 
-func (o createSkuCommand) Type() command.Type {
+func (c CreateSkuCommand) Type() command.Type {
 	return SkuCreateType
 }
 
-func NewCreateSkuCommand(sku string) createSkuCommand {
-	return createSkuCommand{sku: sku}
+func NewCreateSkuCommand(sku string) CreateSkuCommand {
+	return CreateSkuCommand{sku: sku}
 }

@@ -43,7 +43,6 @@ func (server *Server) Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer listener.Close()
 
 	for {

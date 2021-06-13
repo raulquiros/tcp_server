@@ -1,5 +1,7 @@
 package sku
 
+import "context"
+
 type SkuRepository interface {
-	Save(sku string) error
+	Save(ctx context.Context, sku string) error
 }

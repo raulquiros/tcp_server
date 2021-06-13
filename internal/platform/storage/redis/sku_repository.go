@@ -1,16 +1,32 @@
 package redis
 
-import "github.com/go-redis/redis/v8"
+import (
+	"context"
+	"encoding/json"
+	"github.com/go-redis/redis/v8"
+	"github.com/raulquiros/tcp_server/internal/sku"
+)
 
-type redisSkuRepository struct {
+const SkuRepositoryKey = "skus"
+
+type RedisSkuRepository struct {
 	conn *redis.Client
 }
 
-func NewRedisSkuRepository(conn *redis.Client) redisSkuRepository {
-	return redisSkuRepository{conn: conn}
+func NewRedisSkuRepository(conn *redis.Client) RedisSkuRepository {
+	return RedisSkuRepository{conn: conn}
 }
 
-func (r redisSkuRepository) Save(sku string) error {
+func (r RedisSkuRepository) Save(ctx context.Context, sku sku.Sku) error {
+	p, err := json.Marshal(sku)
+	if err != nil {
+		return err
+	}
+
+	resp := r.conn.LPush(ctx, SkuRepositoryKey, p)
+	if resp.Err() != nil {
+		return resp.Err()
+	}
 
 	return nil
 }
