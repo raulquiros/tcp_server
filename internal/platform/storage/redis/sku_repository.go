@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/go-redis/redis/v8"
-	"github.com/raulquiros/tcp_server/internal/sku"
 )
 
 const SkuRepositoryKey = "skus"
@@ -17,7 +16,13 @@ func NewRedisSkuRepository(conn *redis.Client) RedisSkuRepository {
 	return RedisSkuRepository{conn: conn}
 }
 
-func (r RedisSkuRepository) Save(ctx context.Context, sku sku.Sku) error {
+func (r RedisSkuRepository) FindAll(ctx context.Context) ([]string, error) {
+	resp := r.conn.LRange(ctx, SkuRepositoryKey, 0, -1)
+
+	return resp.Result()
+}
+
+func (r RedisSkuRepository) Save(ctx context.Context, sku string) error {
 	p, err := json.Marshal(sku)
 	if err != nil {
 		return err

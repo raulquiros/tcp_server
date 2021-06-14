@@ -4,7 +4,7 @@ import (
 	"github.com/raulquiros/tcp_server/kit/command"
 )
 
-const SkuCreateType command.Type = "command.user.create"
+const SkuCreateType command.Type = "command.sku.create"
 
 type CreateSkuCommand struct {
 	sku string
