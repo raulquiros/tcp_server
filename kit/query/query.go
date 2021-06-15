@@ -22,5 +22,9 @@ type Query interface {
 
 // Handler defines the expected behaviour from a query handler.
 type Handler interface {
-	Handle(context.Context, Query) error
+	Handle(context.Context, Query) (Response, error)
+}
+
+type Response struct {
+	Data interface{}
 }
