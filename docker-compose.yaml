@@ -22,6 +22,10 @@ services:
         volumes:
             - .:/go/src/tcp_server
         working_dir: /go/src/tcp_server
+        ports:
+            - 4000:4000
         environment:
             TCP_HOST: localhost
             TCP_PORT: 4000
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
