@@ -9,5 +9,6 @@ require (
 	github.com/go-redis/redis/v8 v8.10.0
 	github.com/joho/godotenv v1.3.0
 	github.com/mattn/go-shellwords v1.0.12 // indirect
+	github.com/stretchr/testify v1.7.0 // indirect
 	gopkg.in/urfave/cli.v1 v1.20.0 // indirect
 )
